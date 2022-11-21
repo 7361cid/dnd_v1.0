@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content_header %}
+<table>
+        <tr>
+            <td class="table_column">
+                <a id="logo" href="{% url 'home' %}"><img src="/static/images/logo.png" alt="Whitesquare logo"></a>
+            </td>
+            <td class="table_column">
+                <form name="search" action="/" method="get">
+                    <div class="search">
+                      <input type="search" placeholder="Search" name="q">
+                      <input class="search_button"  type="submit" value="GO">
+                    </div>
+                </form>
+            </td>
+        </tr>
+</table>
+{% endblock %}
+
+{% block user_links %}
+<table>
+    <tr>
+        <td class="table_column">
+                {% if user.is_authenticated %}
+                    {% if user.profile_avatar %}
+                        <img src="{{ user.profile_avatar.url }}" height=35 width=35>
+                    {% endif %}
+                  <div class="login"><a href="{% url 'logout' %}"><img src="/static/images/logout.png" alt="Whitesquare logo"></a>  <a href="{% url 'user' pk=user.pk %}">Your page </a></div>
+                {% else %}
+                  <div class="login"><a id="logout" href="{% url 'login' %}">Log In</a> <button onclick="window.location.href = '{% url 'signup' %}';">Sign up</button></div>
+                {% endif %}
+        </td>
+    </tr>
+</table>
+{% endblock %}
+
+{% block content_center %}
+ <div id="login">
+        <form name="LoginForm" action="/login/" method="post">
+        {% csrf_token %}
+        <div class="control-group">
+            <label class="control-label" for="username">Username</label>
+            <div class="controls">
+                <input type="text" id="username" name="username"  placeholder="Username">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="password">Password</label>
+            <div class="controls">
+                <input type="password" name="password" id="password" placeholder="Password">
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn">Login</button>
+            </div>
+        </div>
+        </form>
+    </div>
+{% endblock %}
