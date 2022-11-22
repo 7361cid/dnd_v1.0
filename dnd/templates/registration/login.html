@@ -61,3 +61,18 @@
         </form>
     </div>
 {% endblock %}
+
+{% search %}
+<table>
+        <tr>
+            <td class="table_column">
+                <form name="search" action="/" method="get">
+                    <div class="search">
+                      <input type="search" placeholder="Search" name="q">
+                      <input class="search_button"  type="submit" value="GO">
+                    </div>
+                </form>
+            </td>
+        </tr>
+</table>
+{% endblock %}

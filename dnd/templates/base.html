@@ -1,32 +1,31 @@
 <!DOCTYPE html>
 <html>
- <head>
-	 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
-	<title>{% block title %}Django Auth Tutorial{% endblock %}</title>
-	<link rel="stylesheet" href="/static/css/styles.css" type="text/css">
- </head>
- <body>
-      <table cellspacing="0" cellpadding="0">
-            <tr>
-                <td class="td_head">
-                    <div class="header">
-                        {% block content_header %} {% endblock %}
-                    </div>
-                </td>
-                <td>
-                    <div class="header user_links">
-                        {% block user_links %} {% endblock %}
-                    </div>
-                </td>
+<head>
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+        <table class="table_header">
+            <tr>{% block content_header %} {% endblock %}
+                {% block user_links %} {% endblock %}
             </tr>
-            <tr>
-                <td class="td_content_center">
-                    <div>
-                        {% block content_center %} {% endblock %}
-                    </div>
-                </td>
-            </tr>
-      </table>
+        </table>
+    </div>
+
+    <div id="navigation">
+        {% block search %} {% endblock %}
+    </div>
+
+    <div id="content">
+        <h2>Основной контент страницы</h2>
+        {% block content_center %} {% endblock %}
+    </div>
+
+    <div id="clear">
+    </div>
+
+</div>
 </body>
 </html>

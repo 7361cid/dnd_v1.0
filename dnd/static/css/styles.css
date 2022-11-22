@@ -32,6 +32,18 @@ p {
 	margin: 20px 0;
 }
 
+.table_column {
+    float: left;
+    max-width: 50%;
+    height: auto;
+}
+
+.table_column_user_links {
+    float: right;
+    max-width: 50%;
+    height: auto;
+}
+
 #wrapper {
 	max-width: 100%;
 	margin: auto;
@@ -50,7 +62,7 @@ p {
 
 
 .search {
-    width: 300px;
+    width: 20%;
     min-height: 20px;
    }
 input[type="search"] {
@@ -76,60 +88,10 @@ input[name="tag"] {
      height: 36px;
 }
 
-table {
-    border-collapse: collapse;
-}
-
-.table_column {
-   width: 30vh;
-   float: center;
-}
-
-.table_separator {
-   width: 10px;
-   float: center;
-}
-
-.table_questions {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-    border-collapse: collapse;
-   border: 0px solid grey;
-}
-
-.table_question_data {
-    border: 0px solid black;
-    width: 20vh;
-    text-align: center;
-}
-
-.question {
-   text-align: center;
-}
-
 .login {
     float: right;
 }
 li{list-style-position:inside;}
-
-
-.container {
-    width: 100vh;
-    margin: 0 auto;
-    background: #f0f0f0;
-   }
-
-.header {
-    font-size: 20px;
-    text-align: center;
-    padding: 5px;
-    background: #8fa09b;
-    color: #fff;
-    height: 10vh;
-    width: 100%;
-
-}
 
 .user_links {
  width: 20%;
@@ -146,30 +108,41 @@ li{list-style-position:inside;}
     width: 80%;
 }
 
-.td_head {
-    width: 100%;
+#header {
+     background: #F5DEB3;
+     width: 100%;
+     height: 5%;
 }
 
-.td_sidebar {
-   width: 20%;
+.table_header {
+     background: #F5DEB3;
+     width: 100%;
+     height: 5%;
 }
 
-.td_content_center {
-   width: 80%;
+#container {
+     background: #FFD700;
+     margin: auto auto;
+     text-align: center;
+     width: 100%;
+     height: 100%;
 }
 
-.right_answer {
- font-size: 25px;
+#navigation {
+     background: #FE9798;
+     width: 100%;
+     height: 5%;
+     margin-left: auto;
+     margin-right: auto
 }
 
-#main{
-        width: 1119px;
-        height: 150px;
-        overflow: hidden;
-    }
+#content {
+     background: #DCDCDC;
+     float: right;
+     width: 100%;
+     height: 280px;
+}
 
-#main>div{
-        width: 150px;
-        height: 120px;
-        display: inline-block;
-    }
+#clear {
+     clear: both;
+}

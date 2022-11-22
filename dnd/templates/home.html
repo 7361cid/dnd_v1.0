@@ -3,11 +3,25 @@
 {% block title %}Home{% endblock %}
 
 {% block content_header %}
-<table>
-        <tr>
             <td class="table_column">
                 <a id="logo" href="{% url 'home' %}"><img src="/static/images/logo.png" alt="Whitesquare logo"></a>
             </td>
+{% endblock %}
+
+{% block user_links %}
+                {% if user.is_authenticated %}
+                    <td class="table_column_user_links">
+                        <img src="static/{{ user_avatar }}" height=35 width=35><a href="{% url 'user' pk=user.pk %}"></a>
+                        <a href="{% url 'logout' %}"><img src="/static/images/logout.png" alt="Whitesquare logo"></a>
+                    </td>
+                {% else %}
+                  <td><div class="login"><a id="logout" href="{% url 'login' %}">Log In</a> <button onclick="window.location.href = '{% url 'signup' %}';">Sign up</button></div></td>
+                {% endif %}
+{% endblock %}
+
+{% block search %}
+<table>
+        <tr>
             <td class="table_column">
                 <form name="search" action="/" method="get">
                     <div class="search">
@@ -19,22 +33,3 @@
         </tr>
 </table>
 {% endblock %}
-
-{% block user_links %}
-<table>
-    <tr>
-        <td>
-                {% if user.is_authenticated %}
-                    <div id="main">
-                          <div><img src="static/{{ user_avatar }}" height=35 width=35></div>
-                          <div><a href="{% url 'logout' %}"><img src="/static/images/logout.png" alt="Whitesquare logo"></a>  <a href="{% url 'user' pk=user.pk %}">Your page </a></div>
-                    </div>
-                {% else %}
-                  <div class="login"><a id="logout" href="{% url 'login' %}">Log In</a> <button onclick="window.location.href = '{% url 'signup' %}';">Sign up</button></div>
-                {% endif %}
-        </td>
-    </tr>
-</table>
-{% endblock %}
-
-

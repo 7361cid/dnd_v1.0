@@ -67,7 +67,7 @@ class UserPage(FormView):
         if request.user.is_authenticated:
             context['user_avatar'] = request.user.profile_avatar
 
-        context['page_user_avatar'] = page_user.get_avatar()
+        context['page_user_avatar'] = page_user.profile_avatar
         print(f"UserPage LOG {context}")
         return render(request, 'user_profile.html', context)
 
@@ -82,8 +82,8 @@ class UserPage(FormView):
 
         context = {'form': form, 'page_user': page_user}
         if self.request.user.is_authenticated:
-            context['user_avatar'] = page_user.get_avatar()
-        context['page_user_avatar'] = page_user.get_avatar()
+            context['user_avatar'] = page_user.profile_avatar
+        context['page_user_avatar'] = page_user.profile_avatar
         return render(self.request, 'user_profile.html', context)
 
 def main_page(request):
