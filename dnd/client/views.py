@@ -45,7 +45,7 @@ class Login(View):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return redirect('/')
+                return redirect('home')
         return render(None, 'registration\\login.html', {'csrf_token': csrf_token})
 
 

@@ -13,4 +13,4 @@ class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = CustomClient
         exclude = ("username", "password", "race", "first_name", "is_superuser", "date_joined", "user_permissions",
-                   "last_name", "is_staff", "is_active", "last_login", "groups")
+                   "last_name", "is_staff", "is_active", "last_login", "groups", "money")
