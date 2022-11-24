@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+        <table class="table_header">
+            <tr>{% block content_header %} {% endblock %}
+                {% block user_links %} {% endblock %}
+            </tr>
+        </table>
+    </div>
+
+    <div id="navigation">
+        {% block search %} {% endblock %}
+    </div>
+
+    <div id="content">
+        {% block content_center %} {% endblock %}
+    </div>
+
+    <div id="clear">
+    </div>
+
+</div>
+</body>
+</html>
