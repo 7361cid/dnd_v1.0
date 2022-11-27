@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 from django.views.generic.base import View
 from django.views.generic.edit import FormView
 
-from .models import CustomClient
+from .models import CustomClient, Product
 from .forms import RegisterForm, UserUpdateForm
 
 
@@ -94,3 +94,9 @@ def main_page(request):
         context['user_avatar'] = request.user.profile_avatar
     print(f"UserPage LOG {context}")
     return render(request, 'home.html', context)
+
+class Shop(View):
+    def get(self, request, *args, **kwargs):
+        products = Product.objects.all()
+        context = {"products":products}
+        return render(request, 'shop.html', context)

@@ -26,11 +26,11 @@
       <li><a href="#">Магические товары</a></li>
       <li><a href="#">Обычные вещи</a></li>
     </ul>
-{% block search %}
+{% block content_center %}
 <table class="table_header">
         <tr>
             <td>
-                <form name="search" action="/" method="get">
+                <form name="search" action="/shop" method="get">
                     <div>
                       <input type="search" placeholder="Search" name="q">
                       <input class="search_button"  type="submit" value="GO">
@@ -39,4 +39,32 @@
             </td>
         </tr>
 </table>
+<table>
+    {% for p in  products  %}
+    <tr>
+        <td>
+            <div>{{p.title}}</div>
+        </td>
+        <td>
+            <img src="/static/{{p.product_img}}" height=60 width=100 alt="Whitesquare logo">
+        </td>
+        <td>
+            <div>{{p.description}}</div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div>Цена {{p.price}}</div>
+        </td>
+        <td>
+            <div>Степень Редкости {{p.rare}}</div>
+        </td>
+        <td>
+            <div>Можно использовать {{p.number_of_uses}}</div>
+        </td>
+    </tr>
+    <hr/>
+  {% endfor %}
+  </table>
 {% endblock %}
+lj,

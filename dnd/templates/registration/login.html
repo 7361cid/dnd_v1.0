@@ -2,12 +2,6 @@
 
 {% block title %}Login{% endblock %}
 
-{% block content_header %}
-            <td class="table_column">
-                <a id="logo" href="{% url 'home' %}"><img src="/static/images/logo.png" height=60 width=100 alt="Whitesquare logo"></a>
-            </td>
-{% endblock %}
-
 {% block user_links %}
                 {% if user.is_authenticated %}
                     <td class="table_column_user_links">
@@ -15,8 +9,9 @@
                         <a href="{% url 'logout' %}"><img src="/static/images/logout.png" alt="Whitesquare logo"></a>
                     </td>
                 {% else %}
-                  <td><div class="login"><a id="logout" href="{% url 'login' %}">Log In</a> <button onclick="window.location.href = '{% url 'signup' %}';">Sign up</button></div></td>
-                {% endif %}
+                  <td><div><button class="btn btn-dark btn-lg" type="submit" onclick="window.location.href = '{% url 'login' %}';">Log In</button>
+                      <button class="btn btn-dark btn-lg" type="submit" onclick="window.location.href = '{% url 'signup' %}';">Sign up</button></div></td>
+            {% endif %}
 {% endblock %}
 
 {% block content_center %}
