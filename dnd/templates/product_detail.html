@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    О продукте
+{% endblock %}
+
+{% block user_links %}
+                {% if user.is_authenticated %}
+                    <td class="table_column_user_links">
+                        <a href="{% url 'user' pk=user.pk %}"><img src="static/{{ user_avatar }}" height=35 width=35></a>
+                        <a href="{% url 'logout' %}"><img src="/static/images/logout.png" alt="Whitesquare logo"></a>
+                    </td>
+                {% else %}
+                  <td><div><button class="btn btn-dark btn-lg" type="submit" onclick="window.location.href = '{% url 'login' %}';">Log In</button>
+                      <button class="btn btn-dark btn-lg" type="submit" onclick="window.location.href = '{% url 'signup' %}';">Sign up</button></div></td>
+            {% endif %}
+{% endblock %}
+
+{% block content_center %}
+    <h1>Your shopping cart</h1>
+    <table class="cart">
+        <thead>
+        <tr>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Remove</th>
+            <th>Unit price</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in cart %}
+            {% with product=item.product %}
+                <tr>
+                    <td>
+                        <a href="{{ product.get_absolute_url }}">
+                            <img src="
+                                {% if product.image %}
+                                    {{ product.image.url }}
+                                {% else %}
+                                    {% static "img/no_image.png" %}
+                                {% endif %}">
+                        </a>
+                    </td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td><a href="{% url "cart:cart_remove" product.id%}">Remove</a></td>
+                    <td class="num">${{ item.price }}</td>
+                    <td class="num">${{ item.total_price }}</td>
+                </tr>
+            {% endwith %}
+        {% endfor %}
+        <tr class="total">
+            <td>Total</td>
+            <td colspan="4"></td>
+            <td class="num">${{ cart.get_total_price }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <p class="text-right">
+        <a href="{% url "shop" %}" class="button light">Continue shopping</a>
+        <a href="#" class="button">Checkout</a>
+    </p>
+{% endblock %}

@@ -19,24 +19,3 @@
                       <button class="btn btn-dark btn-lg" type="submit" onclick="window.location.href = '{% url 'signup' %}';">Sign up</button></div></td>
             {% endif %}
 {% endblock %}
-<ul class="nav nav-justified">
-      <li class="active"><a href="index.html">Главная</a></li>
-      <li><a href="Repytw.html">Кузнец</a></li>
-      <li><a href="#">Алхимия</a></li>
-      <li><a href="#">Магические товары</a></li>
-      <li><a href="#">Обычные вещи</a></li>
-    </ul>
-{% block search %}
-<table class="table_header">
-        <tr>
-            <td>
-                <form name="search" action="/" method="get">
-                    <div>
-                      <input type="search" placeholder="Search" name="q">
-                      <input class="search_button"  type="submit" value="GO">
-                    </div>
-                </form>
-            </td>
-        </tr>
-</table>
-{% endblock %}

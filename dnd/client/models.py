@@ -36,3 +36,6 @@ class Product(models.Model):
                                     default='images/deafult-product-image.png')
     price = models.IntegerField(default=1)
     rare = models.CharField(max_length=10, choices=RARE_CHOICES, default='basic')
+
+    def get_absolute_url(self):
+        return reverse('shop:product_detail', args=[self.id])

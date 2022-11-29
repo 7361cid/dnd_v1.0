@@ -5,10 +5,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 from django.views.generic.base import View
 from django.views.generic.edit import FormView
+from django.db.models import Q
 
 from .models import CustomClient, Product
 from .forms import RegisterForm, UserUpdateForm
-
+from cart.forms import CartAddProductForm
 
 class Signup(View):
     def get(self, request, *args, **kwargs):
@@ -87,8 +88,6 @@ class UserPage(FormView):
         return render(self.request, 'user_profile.html', context)
 
 def main_page(request):
-#    latest_question_list = Question.objects.order_by('-pub_date')[:5]
-#    context = {'latest_question_list': latest_question_list}
     context = {}
     if request.user.is_authenticated:
         context['user_avatar'] = request.user.profile_avatar
@@ -97,6 +96,21 @@ def main_page(request):
 
 class Shop(View):
     def get(self, request, *args, **kwargs):
+        search = request.GET.get('q')
+        if search:
+            print(f"Search {search}")
+            try:
+                products = Product.objects.filter(Q(title__iregex=search) | Q(description__iregex=search))
+                context = {"products": products}
+                return render(request, 'shop.html', context)
+            except Exception:
+                pass
         products = Product.objects.all()
         context = {"products":products}
         return render(request, 'shop.html', context)
+
+def product_detail(request, pk):
+    product = get_object_or_404(Product, id=pk)
+    cart_product_form = CartAddProductForm()
+    return render(request, 'product_detail.html', {'product': product,
+                                                        'cart_product_form': cart_product_form})
