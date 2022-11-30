@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.urls import reverse
 
 RACE_CHOICES = (
     ('human', 'HUMAN'),
@@ -38,4 +39,4 @@ class Product(models.Model):
     rare = models.CharField(max_length=10, choices=RARE_CHOICES, default='basic')
 
     def get_absolute_url(self):
-        return reverse('shop:product_detail', args=[self.id])
+        return reverse('product', args=[self.id])

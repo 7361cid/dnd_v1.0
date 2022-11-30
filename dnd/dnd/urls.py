@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("cart/", include("client.urls"), name='cart'),
+    path("cart/", include("cart.urls"), name='cart'),
     path("", include("client.urls"), name='client'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
   + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Без этого не работает функционал аватаров

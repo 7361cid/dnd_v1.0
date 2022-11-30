@@ -55,7 +55,7 @@
     </div>
     {% if user.is_authenticated %}
     <div>
-        <a href="{{ product.get_absolute_url }}">Купить {{ product.title }}</a><br>
+        <a href="{{ p.get_absolute_url }}">Купить {{ product.title }}</a><br>
     </div>
     {% endif %}
   {% endfor %}
