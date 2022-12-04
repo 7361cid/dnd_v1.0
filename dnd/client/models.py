@@ -20,14 +20,6 @@ RARE_CHOICES = (
     ('legendary', 'LEGENDARY'),
 )
 
-class CustomClient(AbstractUser):
-    race = models.CharField(max_length=10, choices=RACE_CHOICES, default='human')
-    # слово class зарезервированно в python
-    class_name = models.CharField(max_length=10, choices=CLASS_CHOICES, default='warrior')
-    money = models.IntegerField(default=0)
-    profile_avatar = models.ImageField(null=True, blank=True, upload_to="images/profile/",
-                                       default='images/deafult-profile-image.png')  # нужно скачать аву по умолчанию
-
 
 class Product(models.Model):
     title = models.CharField(max_length=255)
@@ -40,3 +32,18 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse('product', args=[self.id])
+
+
+class CustomClient(AbstractUser):
+    race = models.CharField(max_length=10, choices=RACE_CHOICES, default='human')
+    # слово class зарезервированно в python
+    class_name = models.CharField(max_length=10, choices=CLASS_CHOICES, default='warrior')
+    money = models.IntegerField(default=0)
+    profile_avatar = models.ImageField(null=True, blank=True, upload_to="images/profile/",
+                                       default='images/deafult-profile-image.png')  # нужно скачать аву по умолчанию
+
+
+class ProductsInCart(models.Model):
+    user_pk = models.IntegerField(default=0)
+    product_pk = models.IntegerField(default=0)
+    count = models.IntegerField(default=1)

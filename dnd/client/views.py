@@ -7,9 +7,10 @@ from django.views.generic.base import View
 from django.views.generic.edit import FormView
 from django.db.models import Q
 
-from .models import CustomClient, Product
+from .models import CustomClient, Product, ProductsInCart
 from .forms import RegisterForm, UserUpdateForm
 from cart.forms import CartAddProductForm
+
 
 class Signup(View):
     def get(self, request, *args, **kwargs):
@@ -70,6 +71,18 @@ class UserPage(FormView):
 
         context['page_user_avatar'] = page_user.profile_avatar
         print(f"UserPage LOG {context}")
+        user_products_dict = {}
+        user_products = ProductsInCart.objects.filter(user_pk=page_user.pk)
+        for user_product in user_products:
+            if user_product.product_pk in user_products_dict:
+                user_products_dict[user_product.product_pk]["quantity"] += user_product.count
+            else:
+                user_products_dict[user_product.product_pk] = {
+                    "product": Product.objects.get(pk=user_product.product_pk),
+                    "quantity": user_product.count}
+            print(f"UserPage LOG {user_product}")
+        print(f"UserPage LOG user_products_dict {user_products_dict}")
+        context["user_products_dict"] = user_products_dict
         return render(request, 'user_profile.html', context)
 
     def form_valid(self, form):
@@ -87,12 +100,14 @@ class UserPage(FormView):
         context['page_user_avatar'] = page_user.profile_avatar
         return render(self.request, 'user_profile.html', context)
 
+
 def main_page(request):
     context = {}
     if request.user.is_authenticated:
         context['user_avatar'] = request.user.profile_avatar
     print(f"UserPage LOG {context}")
     return render(request, 'home.html', context)
+
 
 class Shop(View):
     def get(self, request, *args, **kwargs):
@@ -106,11 +121,12 @@ class Shop(View):
             except Exception:
                 pass
         products = Product.objects.all()
-        context = {"products":products}
+        context = {"products": products}
         return render(request, 'shop.html', context)
+
 
 def product_detail(request, pk):
     product = get_object_or_404(Product, id=pk)
     cart_product_form = CartAddProductForm()
     return render(request, 'product_detail.html', {'product': product,
-                                                        'cart_product_form': cart_product_form})
+                                                   'cart_product_form': cart_product_form})

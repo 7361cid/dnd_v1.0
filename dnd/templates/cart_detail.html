@@ -57,5 +57,9 @@
             <td class="num">${{ cart.get_total_price }}</td>
         </tr>
         </tbody>
+        <button><a href="{% url "buy" %}">Купить</a></button>
+        {% if bich %}
+            <img src="/static/images/no_money.jpg" height=300 width=600>
+        {% endif %}
     </table>
 {% endblock %}

@@ -5,6 +5,7 @@ from .cart import Cart
 from .forms import CartAddProductForm
 
 Product = apps.get_model('client', 'Product')
+ProductsInCart = apps.get_model('client', 'ProductsInCart')
 
 @require_POST
 def cart_add(request, pk):
@@ -27,3 +28,28 @@ def cart_remove(request, product_id):
 def cart_detail(request):
     cart = Cart(request)
     return render(request, 'cart_detail.html', {'cart': cart})
+
+
+def buy_view(request):
+    """
+    Логика покупки товара
+    """
+    cart = Cart(request)
+    print(f"Log BUY VIEW {cart}")
+    print(f"Log BUY VIEW {request.user}")
+    print(f"Log BUY VIEW {request.user.money}")
+    if request.user.money > cart.get_total_price():
+        request.user.money = request.user.money - cart.get_total_price()
+        request.user.save()
+        for item in cart:
+            print(f"Log BUY VIEW product {item} \n {item.keys()}")
+            print(f'Log BUY VIEW user_pk {request.user.pk} {item["product"].pk} {type(request.user.pk)}')
+            product_in_cart_object = ProductsInCart(user_pk=request.user.pk,
+                                                    product_pk=item["product"].pk, count=item["quantity"])
+            product_in_cart_object.save()
+            print(f'Log BUY VIEW product_in_cart_object {product_in_cart_object}')
+        cart.clear()
+        context = {'cart':cart, 'bich': False}
+    else:
+        context = {'bich': True}
+    return render(request, 'cart_detail.html', context)

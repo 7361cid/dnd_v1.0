@@ -39,5 +39,23 @@
             Вы топовый
         {% endif %}
     {% endif %}
+    Ваши товары
+    <ul>
+        {% for key, value in user_products_dict.items %}
+         <div class="row">
+          <nav>
+            <ul class="nav nav-justified">
+              <li> {{value.product.title}}</li>
+              <li> <img src="/static/{{value.product.product_img}}" height=60 width=100 alt="Whitesquare logo"> </li>
+                <li> {{value.product.description}}</li>
+                <li> Цена {{value.product.price}}</li>
+                <li> Степень Редкости {{value.product.rare}}</li>
+                <li> Можно использовать {{value.product.number_of_uses}} </li>
+                <li> Количество {{value.quantity}} </li>
+            </ul>
+          </nav>
+    </div>
+        {% endfor %}
+    </ul>
 {% endblock %}
 
