@@ -20,6 +20,11 @@ RARE_CHOICES = (
     ('legendary', 'LEGENDARY'),
 )
 
+PRODUCT_TYPE_CHOICES = (
+    ('basic', 'BASIC'),
+    ('magic', 'MAGIC'),
+    ('alchemy', 'ALCHEMY'),
+)
 
 class Product(models.Model):
     title = models.CharField(max_length=255)
@@ -29,7 +34,7 @@ class Product(models.Model):
                                     default='images/deafult-product-image.png')
     price = models.IntegerField(default=1)
     rare = models.CharField(max_length=10, choices=RARE_CHOICES, default='basic')
-
+    type = models.CharField(max_length=10, choices=PRODUCT_TYPE_CHOICES, default='basic')
     def get_absolute_url(self):
         return reverse('product', args=[self.id])
 

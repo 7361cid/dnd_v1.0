@@ -115,13 +115,48 @@ class Shop(View):
         if search:
             print(f"Search {search}")
             try:
-                products = Product.objects.filter(Q(title__iregex=search) | Q(description__iregex=search))
-                context = {"products": products}
+                products = Product.objects.filter(type="basic").filter(Q(title__iregex=search)
+                                                                       | Q(description__iregex=search))
+                context = {"products": products, "search_action": "/shop"}
                 return render(request, 'shop.html', context)
             except Exception:
                 pass
-        products = Product.objects.all()
-        context = {"products": products}
+        products = Product.objects.filter(type='basic')
+        context = {"products": products, "search_action": "/shop"}
+        return render(request, 'shop.html', context)
+
+
+class ShopMagic(View):
+    def get(self, request, *args, **kwargs):
+        search = request.GET.get('q')
+        if search:
+            print(f"Search {search}")
+            try:
+                products = Product.objects.filter(type="magic").filter(
+                    Q(title__iregex=search) | Q(description__iregex=search))
+                context = {"products": products, "search_action": "/shop_magic"}
+                return render(request, 'shop.html', context)
+            except Exception:
+                pass
+        products = Product.objects.filter(type='magic')
+        context = {"products": products, "search_action": "/shop_magic"}
+        return render(request, 'shop.html', context)
+
+
+class ShopAlchemy(View):
+    def get(self, request, *args, **kwargs):
+        search = request.GET.get('q')
+        if search:
+            print(f"Search {search}")
+            try:
+                products = Product.objects.filter(type="alchemy").filter(Q(title__iregex=search)
+                                                                         | Q(description__iregex=search))
+                context = {"products": products, "search_action": "/shop_alchemy"}
+                return render(request, 'shop.html', context)
+            except Exception as Exc:
+                print(f"SHIT HAPPEND {Exc}")
+        products = Product.objects.filter(type='alchemy')
+        context = {"products": products, "search_action": "/shop_alchemy"}
         return render(request, 'shop.html', context)
 
 
