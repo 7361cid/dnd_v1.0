@@ -11,7 +11,7 @@
 {% block user_links %}
                 {% if user.is_authenticated %}
                     <td class="table_column_user_links">
-                        <a href="{% url 'user' pk=user.pk %}"><img src="static/{{ user_avatar }}" height=35 width=35></a>
+                        <a href="{% url 'user' pk=user.pk %}"><img src="/static/{{ user_avatar }}" height=35 width=35></a>
                         <a href="{% url 'logout' %}"><img src="/static/images/logout.png" alt="Whitesquare logo"></a>
                     </td>
                 {% else %}
@@ -19,13 +19,29 @@
                       <button class="btn btn-dark btn-lg" type="submit" onclick="window.location.href = '{% url 'signup' %}';">Sign up</button></div></td>
             {% endif %}
 {% endblock %}
-<ul class="nav nav-justified">
-      <li class="active"><a href="index.html">Главная</a></li>
-      <li><a href="Repytw.html">Кузнец</a></li>
-      <li><a href="#">Алхимия</a></li>
-      <li><a href="#">Магические товары</a></li>
-      <li><a href="#">Обычные вещи</a></li>
-    </ul>
+
+{% block navigation %}
+      <li><a href="{% url 'home' %}">Главная</a></li>
+      <li><a href="#">Кузнец</a></li>
+      {%  if search_action == "/shop_alchemy" %}
+            <li class="active"><a href="{% url 'shop_alchemy' %}">Алхимия</a></li>
+      {%  else %}
+             <li><a href="{% url 'shop_alchemy' %}">Алхимия</a></li>
+      {%  endif %}
+
+      {%  if search_action == "/shop_magic" %}
+            <li class="active"><a href="{% url 'shop_magic' %}">Магические товары</a></li>
+      {%  else %}
+             <li><a href="{% url 'shop_magic' %}">Магические товары</a></li>
+      {%  endif %}
+
+      {%  if search_action == "/shop" %}
+            <li class="active"><a href="{% url 'shop' %}">Обычные вещи</a></li>
+      {%  else %}
+             <li><a href="{% url 'shop' %}">Обычные вещи</a></li>
+      {%  endif %}
+{% endblock %}
+
 {% block content_center %}
 <table class="table_header">
         <tr>

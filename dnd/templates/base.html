@@ -42,11 +42,7 @@
 <div class="row">
   <nav>
     <ul class="nav nav-justified">
-      <li class="active"><a href="{% url 'home' %}">Главная</a></li>
-      <li><a href="Repytw.html">Кузнец</a></li>
-      <li><a href="{% url 'shop_alchemy' %}">Алхимия</a></li>
-      <li><a href="{% url 'shop_magic' %}">Магические товары</a></li>
-      <li><a href="{% url 'shop' %}">Обычные вещи</a></li>
+      {% block navigation %}  {% endblock %}
     </ul>
   </nav>
 </div>

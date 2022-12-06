@@ -26,6 +26,12 @@ PRODUCT_TYPE_CHOICES = (
     ('alchemy', 'ALCHEMY'),
 )
 
+LOCS_CHOICES = (
+    ('forest', 'FOREST'),
+    ('hometown', 'HOMETOWN'),
+    ('big cityy', 'BIG CITY'),
+)
+
 class Product(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(max_length=10000)
@@ -35,6 +41,8 @@ class Product(models.Model):
     price = models.IntegerField(default=1)
     rare = models.CharField(max_length=10, choices=RARE_CHOICES, default='basic')
     type = models.CharField(max_length=10, choices=PRODUCT_TYPE_CHOICES, default='basic')
+    location = models.CharField(max_length=20, choices=LOCS_CHOICES, default='hometown')
+
     def get_absolute_url(self):
         return reverse('product', args=[self.id])
 
@@ -46,6 +54,7 @@ class CustomClient(AbstractUser):
     money = models.IntegerField(default=0)
     profile_avatar = models.ImageField(null=True, blank=True, upload_to="images/profile/",
                                        default='images/deafult-profile-image.png')  # нужно скачать аву по умолчанию
+    location = models.CharField(max_length=20, choices=LOCS_CHOICES, default='hometown')
 
 
 class ProductsInCart(models.Model):

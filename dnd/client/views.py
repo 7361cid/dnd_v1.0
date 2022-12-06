@@ -115,14 +115,19 @@ class Shop(View):
         if search:
             print(f"Search {search}")
             try:
-                products = Product.objects.filter(type="basic").filter(Q(title__iregex=search)
-                                                                       | Q(description__iregex=search))
+                products = Product.objects.filter(type="basic").filter(location=request.user.location).filter(
+                    Q(title__iregex=search)
+                    | Q(description__iregex=search))
                 context = {"products": products, "search_action": "/shop"}
+                if request.user.is_authenticated:
+                    context['user_avatar'] = request.user.profile_avatar
                 return render(request, 'shop.html', context)
             except Exception:
                 pass
-        products = Product.objects.filter(type='basic')
+        products = Product.objects.filter(type='basic').filter(location=request.user.location)
         context = {"products": products, "search_action": "/shop"}
+        if request.user.is_authenticated:
+            context['user_avatar'] = request.user.profile_avatar
         return render(request, 'shop.html', context)
 
 
@@ -132,14 +137,18 @@ class ShopMagic(View):
         if search:
             print(f"Search {search}")
             try:
-                products = Product.objects.filter(type="magic").filter(
+                products = Product.objects.filter(type="magic").filter(location=request.user.location).filter(
                     Q(title__iregex=search) | Q(description__iregex=search))
                 context = {"products": products, "search_action": "/shop_magic"}
+                if request.user.is_authenticated:
+                    context['user_avatar'] = request.user.profile_avatar
                 return render(request, 'shop.html', context)
             except Exception:
                 pass
-        products = Product.objects.filter(type='magic')
+        products = Product.objects.filter(type='magic').filter(location=request.user.location)
         context = {"products": products, "search_action": "/shop_magic"}
+        if request.user.is_authenticated:
+            context['user_avatar'] = request.user.profile_avatar
         return render(request, 'shop.html', context)
 
 
@@ -149,14 +158,19 @@ class ShopAlchemy(View):
         if search:
             print(f"Search {search}")
             try:
-                products = Product.objects.filter(type="alchemy").filter(Q(title__iregex=search)
-                                                                         | Q(description__iregex=search))
+                products = Product.objects.filter(type="alchemy").filter(location=request.user.location).filter(
+                    Q(title__iregex=search)
+                    | Q(description__iregex=search))
                 context = {"products": products, "search_action": "/shop_alchemy"}
+                if request.user.is_authenticated:
+                    context['user_avatar'] = request.user.profile_avatar
                 return render(request, 'shop.html', context)
             except Exception as Exc:
                 print(f"SHIT HAPPEND {Exc}")
-        products = Product.objects.filter(type='alchemy')
+        products = Product.objects.filter(type='alchemy').filter(location=request.user.location)
         context = {"products": products, "search_action": "/shop_alchemy"}
+        if request.user.is_authenticated:
+            context['user_avatar'] = request.user.profile_avatar
         return render(request, 'shop.html', context)
 
 
