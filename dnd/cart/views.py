@@ -19,9 +19,9 @@ def cart_add(request, pk):
                  update_quantity=cd['update'])
     return redirect('cart_detail')
 
-def cart_remove(request, product_id):
+def cart_remove(request, pk):
     cart = Cart(request)
-    product = get_object_or_404(Product, id=product_id)
+    product = get_object_or_404(Product, id=pk)
     cart.remove(product)
     return redirect('cart_detail')
 

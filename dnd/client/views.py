@@ -114,21 +114,36 @@ class Shop(View):
         search = request.GET.get('q')
         if search:
             print(f"Search {search}")
-            try:
-                products = Product.objects.filter(type="basic").filter(location=request.user.location).filter(
-                    Q(title__iregex=search)
-                    | Q(description__iregex=search))
-                context = {"products": products, "search_action": "/shop"}
-                if request.user.is_authenticated:
+            if request.user.is_anonymous:
+                try:
+                    products = Product.objects.filter(type="basic").filter(
+                        Q(title__iregex=search)
+                        | Q(description__iregex=search))
+                    context = {"products": products, "search_action": "/shop"}
+                    return render(request, 'shop.html', context)
+                except Exception as Exc:
+                    print(f"SHIT HAPPEND {Exc}")
+            else:
+                try:
+                    products = Product.objects.filter(type="basic").filter(location=request.user.location).filter(
+                        Q(title__iregex=search)
+                        | Q(description__iregex=search))
+                    context = {"products": products, "search_action": "/shop"}
                     context['user_avatar'] = request.user.profile_avatar
-                return render(request, 'shop.html', context)
-            except Exception:
-                pass
-        products = Product.objects.filter(type='basic').filter(location=request.user.location)
-        context = {"products": products, "search_action": "/shop"}
-        if request.user.is_authenticated:
-            context['user_avatar'] = request.user.profile_avatar
-        return render(request, 'shop.html', context)
+                    if request.user.is_authenticated:
+                        context['user_avatar'] = request.user.profile_avatar
+                    return render(request, 'shop.html', context)
+                except Exception as Exc:
+                    print(f"SHIT HAPPEND {Exc}")
+        else:
+            if request.user.is_anonymous:
+                products = Product.objects.filter(type='basic')
+                context = {"products": products, "search_action": "/shop"}
+            else:
+                products = Product.objects.filter(type='basic').filter(location=request.user.location)
+                context = {"products": products, "search_action": "/shop"}
+                context['user_avatar'] = request.user.profile_avatar
+            return render(request, 'shop.html', context)
 
 
 class ShopMagic(View):
@@ -136,20 +151,36 @@ class ShopMagic(View):
         search = request.GET.get('q')
         if search:
             print(f"Search {search}")
-            try:
-                products = Product.objects.filter(type="magic").filter(location=request.user.location).filter(
-                    Q(title__iregex=search) | Q(description__iregex=search))
-                context = {"products": products, "search_action": "/shop_magic"}
-                if request.user.is_authenticated:
+            if request.user.is_anonymous:
+                try:
+                    products = Product.objects.filter(type="magic").filter(
+                        Q(title__iregex=search)
+                        | Q(description__iregex=search))
+                    context = {"products": products, "search_action": "/shop_magic"}
+                    return render(request, 'shop.html', context)
+                except Exception as Exc:
+                    print(f"SHIT HAPPEND {Exc}")
+            else:
+                try:
+                    products = Product.objects.filter(type="magic").filter(location=request.user.location).filter(
+                        Q(title__iregex=search)
+                        | Q(description__iregex=search))
+                    context = {"products": products, "search_action": "/shop_magic"}
                     context['user_avatar'] = request.user.profile_avatar
-                return render(request, 'shop.html', context)
-            except Exception:
-                pass
-        products = Product.objects.filter(type='magic').filter(location=request.user.location)
-        context = {"products": products, "search_action": "/shop_magic"}
-        if request.user.is_authenticated:
-            context['user_avatar'] = request.user.profile_avatar
-        return render(request, 'shop.html', context)
+                    if request.user.is_authenticated:
+                        context['user_avatar'] = request.user.profile_avatar
+                    return render(request, 'shop.html', context)
+                except Exception as Exc:
+                    print(f"SHIT HAPPEND {Exc}")
+        else:
+            if request.user.is_anonymous:
+                products = Product.objects.filter(type='magic')
+                context = {"products": products, "search_action": "/shop_magic"}
+            else:
+                products = Product.objects.filter(type='magic').filter(location=request.user.location)
+                context = {"products": products, "search_action": "/shop_magic"}
+                context['user_avatar'] = request.user.profile_avatar
+            return render(request, 'shop.html', context)
 
 
 class ShopAlchemy(View):
@@ -157,21 +188,36 @@ class ShopAlchemy(View):
         search = request.GET.get('q')
         if search:
             print(f"Search {search}")
-            try:
-                products = Product.objects.filter(type="alchemy").filter(location=request.user.location).filter(
-                    Q(title__iregex=search)
-                    | Q(description__iregex=search))
-                context = {"products": products, "search_action": "/shop_alchemy"}
-                if request.user.is_authenticated:
+            if request.user.is_anonymous:
+                try:
+                    products = Product.objects.filter(type="alchemy").filter(
+                        Q(title__iregex=search)
+                        | Q(description__iregex=search))
+                    context = {"products": products, "search_action": "/shop_alchemy"}
+                    return render(request, 'shop.html', context)
+                except Exception as Exc:
+                    print(f"SHIT HAPPEND {Exc}")
+            else:
+                try:
+                    products = Product.objects.filter(type="alchemy").filter(location=request.user.location).filter(
+                        Q(title__iregex=search)
+                        | Q(description__iregex=search))
+                    context = {"products": products, "search_action": "/shop_alchemy"}
                     context['user_avatar'] = request.user.profile_avatar
-                return render(request, 'shop.html', context)
-            except Exception as Exc:
-                print(f"SHIT HAPPEND {Exc}")
-        products = Product.objects.filter(type='alchemy').filter(location=request.user.location)
-        context = {"products": products, "search_action": "/shop_alchemy"}
-        if request.user.is_authenticated:
-            context['user_avatar'] = request.user.profile_avatar
-        return render(request, 'shop.html', context)
+                    if request.user.is_authenticated:
+                        context['user_avatar'] = request.user.profile_avatar
+                    return render(request, 'shop.html', context)
+                except Exception as Exc:
+                    print(f"SHIT HAPPEND {Exc}")
+        else:
+            if request.user.is_anonymous:
+                products = Product.objects.filter(type='alchemy')
+                context = {"products": products, "search_action": "/shop_alchemy"}
+            else:
+                products = Product.objects.filter(type='alchemy').filter(location=request.user.location)
+                context = {"products": products, "search_action": "/shop_alchemy"}
+                context['user_avatar'] = request.user.profile_avatar
+            return render(request, 'shop.html', context)
 
 
 def product_detail(request, pk):

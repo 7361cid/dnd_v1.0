@@ -55,26 +55,34 @@
             </td>
         </tr>
 </table>
-<table>
-    {% for p in  products  %}
-    <div class="row">
-      <nav>
-        <ul class="nav nav-justified">
-          <li> {{p.title}}</li>
-          <li> <img src="/static/{{p.product_img}}" height=60 width=100 alt="Whitesquare logo"> </li>
-            <li> {{p.description}}</li>
-            <li> Цена {{p.price}}</li>
-            <li> Степень Редкости {{p.rare}}</li>
-            <li> Можно использовать {{p.number_of_uses}} </li>
-        </ul>
-      </nav>
-    </div>
-    {% if user.is_authenticated %}
-    <div>
-        <a href="{{ p.get_absolute_url }}">Купить {{ product.title }}</a><br>
-    </div>
-    {% endif %}
-  {% endfor %}
-  </table>
+
+<table class="table table-sm table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Название</th>
+      <th scope="col">Описание</th>
+      <th scope="col">Цена</th>
+      <th scope="col">Степень Редкости</th>
+        <th scope="col">Можно использовать</th>
+      <th scope="col">Внешний вид</th>
+    </tr>
+  </thead>
+  <tbody>
+        {% for p in  products  %}
+        <tr>
+              <td>{{p.title}}</td>
+              <td>{{p.description}}</td>
+              <td>{{p.price}}</td>
+              <td>{{p.rare}}</td>
+              <td>{{p.number_of_uses}}</td>
+              <td><img src="/static/{{p.product_img}}" height=60 width=100 alt="Whitesquare logo"></td>
+        </tr>
+             {% if user.is_authenticated %}
+                <div>
+                    <a href="{{ p.get_absolute_url }}">Купить {{ product.title }}</a><br>
+                </div>
+            {% endif %}
+        {% endfor %}
+  </tbody>
+</table>
 {% endblock %}
-lj,
